@@ -52,6 +52,34 @@ def calc_temps(start_date, end_date):
 
 
 
+# Home Route
+@app.route("/")
+def welcome():
+        return """<html>
+<h1>Hawaii Climate App (Flask API)</h1>
+<img src="https://i.ytimg.com/vi/3ZiMvhIO-d4/maxresdefault.jpg" alt="Hawaii Weather"/>
+<p>Precipitation Analysis:</p>
+<ul>
+  <li><a href="/api/v1.0/precipitation">/api/v1.0/precipitation</a></li>
+</ul>
+<p>Station Analysis:</p>
+<ul>
+  <li><a href="/api/v1.0/stations">/api/v1.0/stations</a></li>
+</ul>
+<p>Temperature Analysis:</p>
+<ul>
+  <li><a href="/api/v1.0/tobs">/api/v1.0/tobs</a></li>
+</ul>
+<p>Start Day Analysis:</p>
+<ul>
+  <li><a href="/api/v1.0/2017-03-14">/api/v1.0/2017-03-14</a></li>
+</ul>
+<p>Start & End Day Analysis:</p>
+<ul>
+  <li><a href="/api/v1.0/2017-03-14/2017-03-28">/api/v1.0/2017-03-14/2017-03-28</a></li>
+</ul>
+</html>
+"""
 @app.route("/")
 def main():
     """List all routes that are available."""
@@ -169,7 +197,7 @@ def start_end(start, end):
 
     #get the temperatures
     temps = calc_temps(start, end)
-    
+
     #create a list
     return_list = []
     date_dict = {'start_date': start, 'end_date': end}
