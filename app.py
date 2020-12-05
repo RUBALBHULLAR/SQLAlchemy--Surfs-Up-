@@ -137,7 +137,7 @@ def tobs():
         tobs_list.append(tobs_dict)
 
     return jsonify(tobs_list)
-    
+
 @app.route("/api/v1.0/<start>")
 def start(start):
 
@@ -169,6 +169,16 @@ def start_end(start, end):
 
     #get the temperatures
     temps = calc_temps(start, end)
+    
+    #create a list
+    return_list = []
+    date_dict = {'start_date': start, 'end_date': end}
+    return_list.append(date_dict)
+    return_list.append({'Observation': 'TMIN', 'Temperature': temps[0][0]})
+    return_list.append({'Observation': 'TAVG', 'Temperature': temps[0][1]})
+    return_list.append({'Observation': 'TMAX', 'Temperature': temps[0][2]})
+
+    return jsonify(return_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
