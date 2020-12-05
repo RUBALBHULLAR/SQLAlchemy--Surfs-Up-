@@ -56,7 +56,7 @@ def calc_temps(start_date, end_date):
 @app.route("/")
 def welcome():
         return """<html>
-<h1>Hawaii Climate App </h1>
+<h1>HAWAII CLIMATE APP </h1>
 <img src="https://www.watchmojo.com/uploads/thumbs720/goodhawaii.jpg" alt="Hawaii Weather"/>
 <p>Precipitation Analysis:</p>
 <ul>
