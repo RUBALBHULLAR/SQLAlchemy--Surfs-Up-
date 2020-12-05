@@ -137,6 +137,7 @@ def tobs():
         tobs_list.append(tobs_dict)
 
     return jsonify(tobs_list)
+    
 @app.route("/api/v1.0/<start>")
 def start(start):
 
@@ -148,7 +149,7 @@ def start(start):
 
     #get the temperatures
     temps = calc_temps(start, max_date)
-    
+
     #create a list
     return_list = []
     date_dict = {'start_date': start, 'end_date': max_date}
@@ -158,6 +159,16 @@ def start(start):
     return_list.append({'Observation': 'TMAX', 'Temperature': temps[0][2]})
 
     return jsonify(return_list)
+
+@app.route("/api/v1.0/<start>/<end>")
+def start_end(start, end):
+    """Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a given start
+    or start-end range."""
+
+    print("Received start date and end date api request.")
+
+    #get the temperatures
+    temps = calc_temps(start, end)
 
 if __name__ == '__main__':
     app.run(debug=True)
