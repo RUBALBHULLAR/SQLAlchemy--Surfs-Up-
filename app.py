@@ -148,6 +148,16 @@ def start(start):
 
     #get the temperatures
     temps = calc_temps(start, max_date)
+    
+    #create a list
+    return_list = []
+    date_dict = {'start_date': start, 'end_date': max_date}
+    return_list.append(date_dict)
+    return_list.append({'Observation': 'TMIN', 'Temperature': temps[0][0]})
+    return_list.append({'Observation': 'TAVG', 'Temperature': temps[0][1]})
+    return_list.append({'Observation': 'TMAX', 'Temperature': temps[0][2]})
+
+    return jsonify(return_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
