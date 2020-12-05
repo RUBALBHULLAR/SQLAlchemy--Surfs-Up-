@@ -109,6 +109,34 @@ def stations():
         stations_list.append(station_dict)
 
     return jsonify(stations_list)
+@app.route("/api/v1.0/tobs")
+def tobs():
+    """Return a JSON list of temperature observations for the previous year."""
+
+    print("Received tobs api request.")
+
+    #We find temperature data for the last year.  First we find the last date in the database
+    final_date_query = session.query(func.max(func.strftime("%Y-%m-%d", Measurement.date))).all()
+    max_date_string = final_date_query[0][0]
+    max_date = dt.datetime.strptime(max_date_string, "%Y-%m-%d")
+
+    #set beginning of search query
+    begin_date = max_date - dt.timedelta(365)
+
+    #get temperature measurements for last year
+    results = session.query(Measurement).\
+        filter(func.strftime("%Y-%m-%d", Measurement.date) >= begin_date).all()
+
+    #create list of dictionaries (one for each observation)
+    tobs_list = []
+    for result in results:
+        tobs_dict = {}
+        tobs_dict["date"] = result.date
+        tobs_dict["station"] = result.station
+        tobs_dict["tobs"] = result.tobs
+        tobs_list.append(tobs_dict)
+
+    return jsonify(tobs_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
