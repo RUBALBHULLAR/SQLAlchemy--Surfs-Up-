@@ -137,6 +137,17 @@ def tobs():
         tobs_list.append(tobs_dict)
 
     return jsonify(tobs_list)
+@app.route("/api/v1.0/<start>")
+def start(start):
+
+    print("Received start date api request.")
+
+    #First we find the last date in the database
+    final_date_query = session.query(func.max(func.strftime("%Y-%m-%d", Measurement.date))).all()
+    max_date = final_date_query[0][0]
+
+    #get the temperatures
+    temps = calc_temps(start, max_date)
 
 if __name__ == '__main__':
     app.run(debug=True)
