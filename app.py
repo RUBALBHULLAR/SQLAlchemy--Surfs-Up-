@@ -56,8 +56,8 @@ def calc_temps(start_date, end_date):
 @app.route("/")
 def welcome():
         return """<html>
-<h1>Hawaii Climate App (Flask API)</h1>
-<img src="https://i.ytimg.com/vi/3ZiMvhIO-d4/maxresdefault.jpg" alt="Hawaii Weather"/>
+<h1>Hawaii Climate App </h1>
+<img src="https://www.watchmojo.com/uploads/thumbs720/goodhawaii.jpg" alt="Hawaii Weather"/>
 <p>Precipitation Analysis:</p>
 <ul>
   <li><a href="/api/v1.0/precipitation">/api/v1.0/precipitation</a></li>
