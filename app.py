@@ -34,6 +34,23 @@ session = Session(engine)
 app = Flask(__name__)
 
 #Set Flask Routes
+# This function called `calc_temps` will accept start date and end date in the format '%Y-%m-%d' 
+# and return the minimum, average, and maximum temperatures for that range of dates
+def calc_temps(start_date, end_date):
+    """TMIN, TAVG, and TMAX for a list of dates.
+    
+    Args:
+        start_date (string): A date string in the format %Y-%m-%d
+        end_date (string): A date string in the format %Y-%m-%d
+        
+    Returns:
+        TMIN, TAVG, and TMAX
+    """
+    
+    return session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
+
+
 
 @app.route("/")
 def main():
@@ -92,3 +109,6 @@ def stations():
         stations_list.append(station_dict)
 
     return jsonify(stations_list)
+
+if __name__ == '__main__':
+    app.run(debug=True)
